@@ -1,27 +1,6 @@
 # TurboVets - Smart Task Management System
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
-
 A modern, scalable task management system built with **NestJS**, **Angular**, and **Nx**.
-
----
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Prerequisites](#prerequisites)
-- [Project Setup](#project-setup)
-- [Installation](#installation)
-- [Running the Application](#running-the-application)
-- [Building for Production](#building-for-production)
-- [Project Structure](#project-structure)
-- [Key Features](#key-features)
-- [Development Workflow](#development-workflow)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Learn More](#learn-more)
-
----
 
 ## 🎯 Overview
 
