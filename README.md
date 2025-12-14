@@ -1,109 +1,403 @@
-# Abarigela6bcb1366A34e4f3e8906548f6a6dcf19
+# TurboVets - Smart Task Management System
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+A modern, scalable task management system built with **NestJS**, **Angular**, and **Nx**.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+---
 
-## Generate a library
+## 📋 Table of Contents
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Project Setup](#project-setup)
+- [Installation](#installation)
+- [Running the Application](#running-the-application)
+- [Building for Production](#building-for-production)
+- [Project Structure](#project-structure)
+- [Key Features](#key-features)
+- [Development Workflow](#development-workflow)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Learn More](#learn-more)
+
+---
+
+## 🎯 Overview
+
+TurboVets is a comprehensive task management system designed for teams to collaborate efficiently. The project uses a monorepo structure with Nx to manage multiple packages and applications seamlessly.
+
+**Tech Stack:**
+- **Frontend:** Angular (standalone components)
+- **Backend:** NestJS
+- **Monorepo Tool:** Nx
+- **Database:** PostgreSQL (or your configured database)
+- **Authentication:** JWT Token-based
+- **Styling:** Tailwind CSS
+
+---
+
+## 📦 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
+- **npm** (v9 or higher) or **yarn** (v3 or higher)
+- **Git** - [Download](https://git-scm.com/)
+- **PostgreSQL** (v12 or higher) - [Download](https://www.postgresql.org/)
+
+Verify your installation:
+```bash
+node --version
+npm --version
+git --version
 ```
 
-## Run tasks
+---
 
-To build the library use:
+## 🚀 Project Setup
 
-```sh
-npx nx build pkg1
+### Step 1: Clone the Repository
+
+```bash
+git clone <repository-url>
+cd turbovets
 ```
 
-To run any task with Nx use:
+### Step 2: Install Dependencies
 
-```sh
+Using npm:
+```bash
+npm install
+```
+
+Or using yarn:
+```bash
+yarn install
+```
+
+### Step 3: Environment Configuration
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+# Database Configuration
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_NAME=turbovets
+DATABASE_USER=postgres
+DATABASE_PASSWORD=your_password
+
+# JWT Configuration
+JWT_SECRET=your_secret_key_here
+JWT_EXPIRATION=24h
+
+# API Configuration
+API_PORT=3000
+API_HOST=localhost
+
+# Frontend Configuration
+FRONTEND_URL=http://localhost:4200
+```
+
+### Step 4: Database Setup
+
+Create the database and run migrations:
+
+```bash
+# Create database (using psql)
+psql -U postgres -c "CREATE DATABASE turbovets;"
+
+# Run migrations from the backend directory
+npm run migration:run
+```
+
+---
+
+## 📥 Installation
+
+### Install All Dependencies
+
+```bash
+npm install
+```
+
+This will install dependencies for all packages in the monorepo.
+
+### Install Nx Console (Optional but Recommended)
+
+Nx Console is an editor extension that provides a rich UI for Nx commands.
+
+For **VSCode:**
+```bash
+# Search for "Nx Console" in VSCode Extensions and install
+# Or install via command line:
+code --install-extension nrwl.angular-console
+```
+
+For **IntelliJ/WebStorm:**
+- Go to **Preferences/Settings → Plugins**
+- Search for "Nx Console" and install
+
+---
+
+## ▶️ Running the Application
+
+### Development Mode
+
+#### Run All Services
+
+Open two terminal windows and run:
+
+**Terminal 1 - Start the backend (NestJS API):**
+```bash
+npm run dev:api
+```
+
+**Terminal 2 - Start the frontend (Angular app):**
+```bash
+npm run dev:app
+```
+
+#### Run Specific Services
+
+**Backend (NestJS API):**
+```bash
+npx nx serve api
+```
+
+**Frontend (Angular):**
+```bash
+npx nx serve app
+```
+
+### Access the Application
+
+- **Frontend:** http://localhost:4200
+- **API:** http://localhost:3000
+- **API Docs (Swagger):** http://localhost:3000/api/docs
+
+### Demo Credentials
+
+Use these credentials to log in:
+
+| Role   | Email                  | Password     |
+|--------|------------------------|--------------|
+| Owner  | owner@turbovets.com    | password123  |
+| Admin  | admin@turbovets.com    | password123  |
+| Viewer | viewer@turbovets.com   | password123  |
+
+---
+
+## 🔨 Building for Production
+
+### Build All Applications
+
+```bash
+npm run build
+```
+
+### Build Specific Projects
+
+**Build API:**
+```bash
+npx nx build api
+```
+
+**Build App:**
+```bash
+npx nx build app
+```
+
+### Output Locations
+
+- Backend build: `dist/apps/api`
+- Frontend build: `dist/apps/app`
+
+---
+
+## 📁 Project Structure
+
+```
+turbovets/
+├── apps/
+│   ├── api/                    # NestJS backend application
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   ├── controllers/
+│   │   │   ├── services/
+│   │   │   ├── guards/
+│   │   │   ├── middleware/
+│   │   │   └── main.ts
+│   │   ├── project.json
+│   │   └── tsconfig.json
+│   │
+│   └── app/                    # Angular frontend application
+│       ├── src/
+│       │   ├── app/
+│       │   │   ├── components/
+│       │   │   ├── pages/
+│       │   │   ├── services/
+│       │   │   └── app.component.ts
+│       │   ├── assets/
+│       │   ├── styles/
+│       │   └── main.ts
+│       ├── project.json
+│       └── tsconfig.json
+│
+├── libs/                       # Shared libraries
+│   ├── shared/
+│   │   ├── api-types/         # TypeScript interfaces
+│   │   ├── utils/             # Utility functions
+│   │   └── constants/         # Shared constants
+│   └── ui/                     # Shared UI components
+│
+├── nx.json                     # Nx configuration
+├── package.json                # Dependencies and scripts
+├── tsconfig.base.json          # Base TypeScript config
+├── .env                        # Environment variables
+└── README.md                   # Project documentation
+```
+
+---
+
+## ✨ Key Features
+
+- **Task Management:** Create, update, delete, and organize tasks
+- **Role-Based Access Control:** Owner, Admin, and Viewer roles
+- **Real-time Updates:** Live task status synchronization
+- **User Authentication:** Secure JWT-based authentication
+- **Responsive Design:** Mobile-friendly interface
+- **Modern UI:** Clean, bright orange-themed design with Tailwind CSS
+- **Monorepo Structure:** Scalable architecture with Nx
+
+---
+
+## 🛠️ Development Workflow
+
+### Running Tasks with Nx
+
+Execute any task in your workspace:
+
+```bash
 npx nx <target> <project-name>
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+**Common targets:**
+- `serve` - Start the development server
+- `build` - Build the project for production
+- `test` - Run unit tests
+- `lint` - Lint the code
+- `e2e` - Run end-to-end tests
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Examples:**
 
-## Versioning and releasing
+```bash
+# Serve the app
+npx nx serve app
 
-To version and release the library use
+# Build the API
+npx nx build api
 
-```
-npx nx release
-```
+# Run tests for the app
+npx nx test app
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
-
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+# Lint the API
+npx nx lint api
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+### View Project Graph
 
-```sh
-npx nx sync:check
+Visualize dependencies between projects:
+
+```bash
+npx nx graph
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+This opens an interactive graph showing all projects and their relationships.
 
-## Set up CI!
+### Generate Components
 
-### Step 1
+Generate a new component in the Angular app:
 
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```bash
+npx nx generate @nx/angular:component --project=app --name=my-component
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Generate a new service:
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+```bash
+npx nx generate @nx/angular:service --project=app --name=my-service
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Generate a new NestJS module:
 
-## Install Nx Console
+```bash
+npx nx generate @nx/nest:module --project=api --name=my-module
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+---
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 🧪 Testing
 
-## Useful links
+### Run All Tests
 
-Learn more:
+```bash
+npm run test
+```
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Run Tests for Specific Project
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+npx nx test api
+npx nx test app
+```
+
+### Run Tests in Watch Mode
+
+```bash
+npx nx test app --watch
+```
+
+### Generate Coverage Report
+
+```bash
+npx nx test app --coverage
+```
+
+---
+
+## 📤 Deployment
+
+### Prerequisites for Deployment
+
+- Ensure all environment variables are set on your production server
+- Database should be set up and migrations run
+- Build process completed successfully
+
+### Backend Deployment
+
+```bash
+# Build the API
+npx nx build api
+
+# Deploy the dist/apps/api folder to your server
+# Set up environment variables on the server
+# Install dependencies: npm install --production
+# Run: npm start (or your deployment command)
+```
+
+### Frontend Deployment
+
+```bash
+# Build the frontend
+npx nx build app
+
+# The dist/apps/app folder contains the production-ready files
+# Deploy to a static hosting service:
+# - Vercel
+# - Netlify
+# - AWS S3 + CloudFront
+# - GitHub Pages
+# - Azure Static Web Apps
+```
